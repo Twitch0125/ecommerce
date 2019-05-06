@@ -1,18 +1,23 @@
 import { createStore } from "redux";
 
-const initialState = { products: [], selectedCategory: "", categories: [] };
+const initialState = {
+  products: [],
+  selectedCategory: "",
+  categories: [],
+  selectedCategories: [],
+  selectedProduct: {}
+};
 
 function reducer(state = initialState, action) {
   console.log("reducer called");
   console.log(action.type, action.products);
-  if (action.type === "ADD_PRODUCTS") {
-    console.log("adding products");
-    return Object.assign({}, state, { products: action.products });
-  } else if (action.type === "ADD_CATEGORIES") {
-    console.log("adding categories");
-    return Object.assign({}, state, { categories: action.categories });
-  } else {
-    return state;
+  switch (action.type) {
+    default:
+      return state;
+    case "ADD_PRODUCTS":
+      return Object.assign({}, state, { products: action.products });
+    case "ADD_CATEGORIES":
+      return Object.assign({}, state, { categories: action.categories });
   }
 }
 

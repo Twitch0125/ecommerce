@@ -23,7 +23,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
 
-const drawerWidth = 240;
+export const drawerWidth = 240; //exporting for styling in Products.js
 
 const styles = theme => ({
   root: {
@@ -77,35 +77,30 @@ class ResponsiveDrawer extends React.Component {
             <Smartphone />
           </ListItemIcon>
         );
-        break;
       case "tv":
         return (
           <ListItemIcon>
             <Tv />
           </ListItemIcon>
         );
-        break;
       case "small-appliance":
         return (
           <ListItemIcon>
             <Build />
           </ListItemIcon>
         );
-        break;
       case "refrigerator":
         return (
           <ListItemIcon>
             <Lens />
           </ListItemIcon>
         );
-        break;
       case "watch":
         return (
           <ListItemIcon>
             <Watch />
           </ListItemIcon>
         );
-        break;
       case "action-camera":
         return (
           <ListItemIcon>

@@ -1,9 +1,20 @@
 import React from "react";
 import store from "./store";
-import { GridList, GridListTile } from "@material-ui/core";
+import { GridList, GridListTile, GridListTileBar } from "@material-ui/core";
 import "../style/Products.css";
+import { Route, Link, Switch, Redirect } from "react-router-dom";
+import ProductDetails from "./ProductDetails";
+import { withStyles } from "@material-ui/core/styles";
+import { drawerWidth } from "../Header";
 
-export default class Products extends React.Component {
+//styles for products
+const styles = theme => ({
+  root: {
+    marginLeft: `${drawerWidth}px !important`
+  }
+});
+
+class Products extends React.Component {
   componentDidMount() {
     store.subscribe(() => this.forceUpdate());
     fetch("https://my-json-server.typicode.com/tdmichaelis/json-api/products")
@@ -27,25 +38,45 @@ export default class Products extends React.Component {
         });
       });
   }
+
+  //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts() {
     console.log(store);
-
     return store.getState().products.map(product => {
       return (
         <GridListTile rows={1} key={product.img} cols={GridListTile.cols || 1}>
           <img src={product.img} alt={product.title} />
+          <Link to={`/products/${product.id}`}>
+            <GridListTileBar title={product.title} />
+          </Link>
         </GridListTile>
+      );
+    });
+  }
+  //route products
+  routeProducts() {
+    return store.getState().products.map(product => {
+      return (
+        <Route
+          exact
+          path={`/${product.title}`}
+          render={props => <ProductDetails {...props} />}
+        />
       );
     });
   }
 
   render() {
+    const { classes, theme } = this.props;
+
     return (
       <div>
-        <GridList cellHeight={"350"} cols={4}>
+        <GridList cellHeight={300} cols={4} classes={{ root: classes.root }}>
           {this.renderProducts()}
         </GridList>
       </div>
     );
   }
 }
+
+export default withStyles(styles, { withTheme: true })(Products);
