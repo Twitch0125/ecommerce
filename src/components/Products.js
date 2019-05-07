@@ -1,9 +1,13 @@
 import React from "react";
 import store from "./store";
-import { GridList, GridListTile, GridListTileBar } from "@material-ui/core";
+import {
+  GridList,
+  GridListTile,
+  GridListTileBar,
+  Paper
+} from "@material-ui/core";
 import "../style/Products.css";
-import { Route, Link, Switch, Redirect } from "react-router-dom";
-import ProductDetails from "./ProductDetails";
+import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
 
@@ -58,11 +62,11 @@ class Products extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-      <div>
-        <GridList cellHeight={300} cols={4} classes={{ root: classes.root }}>
+      <Paper elevation={16} className={classes.root}>
+        <GridList cellHeight={300} cols={4}>
           {this.renderProducts()}
         </GridList>
-      </div>
+      </Paper>
     );
   }
 }

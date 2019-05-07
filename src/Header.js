@@ -23,7 +23,7 @@ import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
 import { Link } from "react-router-dom";
-
+import Paper from "@material-ui/core/Paper";
 export const drawerWidth = 240; //exporting for styling in Products.js
 
 const styles = theme => ({
@@ -151,7 +151,7 @@ class ResponsiveDrawer extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
+      <Paper elevation={4} className={classes.root}>
         <CssBaseline />
         <AppBar position="fixed" className={classes.appBar}>
           <Toolbar>
@@ -201,7 +201,7 @@ class ResponsiveDrawer extends React.Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
         </main>
-      </div>
+      </Paper>
     );
   }
 }
