@@ -53,18 +53,6 @@ class Products extends React.Component {
       );
     });
   }
-  //route products
-  routeProducts() {
-    return store.getState().products.map(product => {
-      return (
-        <Route
-          exact
-          path={`/${product.title}`}
-          render={props => <ProductDetails {...props} />}
-        />
-      );
-    });
-  }
 
   render() {
     const { classes, theme } = this.props;

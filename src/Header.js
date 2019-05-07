@@ -22,6 +22,7 @@ import Watch from "@material-ui/icons/Watch";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
+import { Link } from "react-router-dom";
 
 export const drawerWidth = 240; //exporting for styling in Products.js
 
@@ -54,6 +55,10 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing.unit * 3
+  },
+  myLink: {
+    textDecoration: "none",
+    color: "inherit"
   }
 });
 //copied from Material-UI drawers examples
@@ -158,8 +163,11 @@ class ResponsiveDrawer extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
-              Kaleb Co.
+
+            <Typography variant="h3" color="inherit" noWrap>
+              <Link className={classes.myLink} to="/">
+                Kaleb Co.
+              </Link>
             </Typography>
           </Toolbar>
         </AppBar>

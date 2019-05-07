@@ -2,6 +2,7 @@ import React from "react";
 import store from "./store";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
+import { Paper } from "@material-ui/core";
 
 //styles for products
 const styles = theme => ({
@@ -13,10 +14,12 @@ class ProductDetails extends React.Component {
   render() {
     const { classes, theme } = this.props;
     return (
-      <div classes={{ root: classes.root }}>
-        {this.props.match.params.productId}
-        wordssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-      </div>
+      <Paper classes={{ root: classes.root }}>
+        <div>
+          {this.props.match.params.productId}
+          wordssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
+        </div>
+      </Paper>
     );
   }
 }
