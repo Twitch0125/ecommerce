@@ -2,7 +2,7 @@ import React from "react";
 import store from "./store";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
-import { Paper, Button, Typography, GridListTile } from "@material-ui/core";
+import { Paper, Button, Typography, GridListTile, Card, CardMedia, CardContent } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 //styles for products
@@ -14,7 +14,12 @@ const styles = theme => ({
     color: "inherit",
     textDecoration: "none"
   },
-  image: {}
+  card:{
+    maxWidth: "auto"
+  },
+  image: {
+    height: 450,
+  }
 });
 class ProductDetails extends React.Component {
   productId = this.props.match.params.productId;
@@ -31,7 +36,12 @@ class ProductDetails extends React.Component {
     return (
       <Paper className={classes.root}>
         <Typography variant="h3">{this.getProductInfo().title}</Typography>
-        <img src={product.img} alt={product.title} />
+        <Card className={classes.card} raised={false}>
+          <CardMedia className={classes.image} image={product.img} alt={product.title} />
+          <CardContent>
+            <Typography component="p">{this.getProductInfo().description}</Typography>
+          </CardContent>
+        </Card>
         <Typography variant="body1">
           {this.getProductInfo().description}
         </Typography>

@@ -10,11 +10,24 @@ import "../style/Products.css";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
+import { maxHeaderSize } from "http";
 
 //styles for products
 const styles = theme => ({
   root: {
-    marginLeft: `${drawerWidth}px !important`
+    marginLeft: `${drawerWidth}px !important`,
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    overflow: 'hidden',
+  },
+  gridList:{
+    // width: 500,
+    // height: 450,
+  },
+  image:{
+    // maxHeight: "100%"
+    // maxWidth: "100%",
   }
 });
 
@@ -45,11 +58,12 @@ class Products extends React.Component {
 
   //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts() {
+    const { classes, theme } = this.props;
     console.log(store);
     return store.getState().products.map(product => {
       return (
-        <GridListTile rows={1} key={product.img} cols={GridListTile.cols || 1}>
-          <img src={product.img} alt={product.title} />
+        <GridListTile  rows={1} key={product.img} cols={GridListTile.cols || 1}>
+          <img className={classes.image} src={product.img} alt={product.title} />
           <Link to={`/products/${product.id}`}>
             <GridListTileBar title={product.title} />
           </Link>
@@ -63,7 +77,7 @@ class Products extends React.Component {
 
     return (
       <Paper elevation={16} className={classes.root}>
-        <GridList cellHeight={300} cols={4}>
+        <GridList cellHeight={300} className={classes.gridList} cols={4}>
           {this.renderProducts()}
         </GridList>
       </Paper>
