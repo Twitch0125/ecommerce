@@ -1,33 +1,36 @@
 import React from "react";
 import store from "./store";
 import {
-  GridList,
-  GridListTile,
-  GridListTileBar,
-  Paper
+  Grid,
+  Paper,
+  Card,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  CardActions,
+  Typography,
+  Button
 } from "@material-ui/core";
 import "../style/Products.css";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
-import { maxHeaderSize } from "http";
 
 //styles for products
 const styles = theme => ({
   root: {
-    marginLeft: `${drawerWidth}px !important`,
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflow: 'hidden',
+    marginLeft: `${drawerWidth}px`
+    // display: 'flex',
+    // flexWrap: 'wrap',
+    // justifyContent: 'space-around',
+    // overflow: 'hidden',
   },
-  gridList:{
-    // width: 500,
-    // height: 450,
-  },
-  image:{
-    // maxHeight: "100%"
-    // maxWidth: "100%",
+  gridList: {},
+  image: {
+    height: "30vh",
+    backgroundSize: "contain",
+    backgroundRepeat: "no-repeat"
+    // backgroundImage: "url(" + {background} + ")"
   }
 });
 
@@ -62,12 +65,23 @@ class Products extends React.Component {
     console.log(store);
     return store.getState().products.map(product => {
       return (
-        <GridListTile  rows={1} key={product.img} cols={GridListTile.cols || 1}>
-          <img className={classes.image} src={product.img} alt={product.title} />
-          <Link to={`/products/${product.id}`}>
-            <GridListTileBar title={product.title} />
-          </Link>
-        </GridListTile>
+        <Grid sm={10} md={8} lg={4} item={true}>
+          <Card raised={false}>
+            <CardHeader title={product.title} />
+            <CardMedia
+              className={classes.image}
+              image={product.img}
+              alt={product.title}
+            />
+            <CardHeader title={`$${product.price}`} />
+            <CardContent>
+              <Typography component="p">{product.description}</Typography>
+            </CardContent>
+            <CardActions>
+              <Button variant="contained">Add To Cart</Button>
+            </CardActions>
+          </Card>
+        </Grid>
       );
     });
   }
@@ -76,10 +90,10 @@ class Products extends React.Component {
     const { classes, theme } = this.props;
 
     return (
-      <Paper elevation={16} className={classes.root}>
-        <GridList cellHeight={300} className={classes.gridList} cols={4}>
+      <Paper elevation={2} className={classes.root}>
+        <Grid spacing={8} container={true} justify="space-evenly">
           {this.renderProducts()}
-        </GridList>
+        </Grid>
       </Paper>
     );
   }

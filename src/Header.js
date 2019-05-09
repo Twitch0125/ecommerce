@@ -24,6 +24,7 @@ import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
+import Home from "@material-ui/icons/Home"
 export const drawerWidth = 240; //exporting for styling in Products.js
 
 const styles = theme => ({
@@ -54,7 +55,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * .5
   },
   myLink: {
     textDecoration: "none",
@@ -138,14 +139,24 @@ class ResponsiveDrawer extends React.Component {
         <List>{this.renderCategories()}</List>
         <Divider />
         <List>
-          {["Your Cart"].map((text, index) => (
-            <ListItem button key={text}>
+            <ListItem button>
               <ListItemIcon>
                 <ShoppingCart />
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText>
+                Your Cart
+                </ListItemText>
             </ListItem>
-          ))}
+            <Link className={classes.myLink} to="/">
+            <ListItem button>
+              <ListItemIcon>
+                <Home />
+              </ListItemIcon>
+              <ListItemText>
+                Home
+                </ListItemText>
+            </ListItem>
+            </Link>
         </List>
       </div>
     );
@@ -205,13 +216,4 @@ class ResponsiveDrawer extends React.Component {
     );
   }
 }
-
-ResponsiveDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  // Injected by the documentation to work in an iframe.
-  // You won't need it on your project.
-  container: PropTypes.object,
-  theme: PropTypes.object.isRequired
-};
-
 export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);

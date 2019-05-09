@@ -5,7 +5,8 @@ const initialState = {
   selectedCategory: "",
   categories: [],
   selectedCategories: [],
-  selectedProduct: {}
+  selectedProduct: {},
+  cart: []
 };
 
 function reducer(state = initialState, action) {

@@ -2,7 +2,7 @@ import React from "react";
 import store from "./store";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
-import { Paper, Button, Typography, GridListTile, Card, CardMedia, CardContent } from "@material-ui/core";
+import { Button, Typography, Card, CardMedia, CardContent, CardHeader, CardActions } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 //styles for products
@@ -15,10 +15,11 @@ const styles = theme => ({
     textDecoration: "none"
   },
   card:{
-    maxWidth: "auto"
+    maxWidth: "50%"
   },
   image: {
-    height: 450,
+    height: "50vh",
+    backgroundSize: "contain"
   }
 });
 class ProductDetails extends React.Component {
@@ -34,22 +35,24 @@ class ProductDetails extends React.Component {
     const { classes, theme } = this.props;
     const product = this.getProductInfo();
     return (
-      <Paper className={classes.root}>
-        <Typography variant="h3">{this.getProductInfo().title}</Typography>
+      <div className={classes.root}>
         <Card className={classes.card} raised={false}>
+        <CardHeader title={product.title} />
           <CardMedia className={classes.image} image={product.img} alt={product.title} />
+          <CardHeader title={`$${product.price}`} />
           <CardContent>
             <Typography component="p">{this.getProductInfo().description}</Typography>
           </CardContent>
-        </Card>
-        <Typography variant="body1">
-          {this.getProductInfo().description}
-        </Typography>
-
-        <Link className={classes.link} to="/">
-          <Button variant="fab">BACK</Button>
+          <CardActions>
+          <Link className={classes.link} to="/">
+          <Button variant="flat">BACK</Button>
         </Link>
-      </Paper>
+        <Button variant="flat">Add To Cart</Button>
+
+          </CardActions>
+        </Card>
+
+      </div>
     );
   }
 }
