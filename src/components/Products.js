@@ -9,29 +9,42 @@ import {
   CardMedia,
   CardActions,
   Typography,
-  Button
+  Button,
+  Icon
 } from "@material-ui/core";
 import "../style/Products.css";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
+import { Star } from "@material-ui/icons/Star";
 
 //styles for products
 const styles = theme => ({
   root: {
     marginLeft: `${drawerWidth}px`
-    // display: 'flex',
-    // flexWrap: 'wrap',
-    // justifyContent: 'space-around',
-    // overflow: 'hidden',
   },
-  gridList: {},
   image: {
     height: "30vh",
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat"
-    // backgroundImage: "url(" + {background} + ")"
-  }
+  },
+  "@media screen and (max-width: 600px)": {
+    root: {
+      marginLeft: "0px"
+    }
+  },
+  buttons: {
+    justifyContent: "space-evenly"
+  },
+  myLink: {
+    textDecoration: "none",
+    color: "inherit"
+  },
+  price: {
+    display: "flex",
+    justifyContent: "space-evenly"
+  },
+  card: {}
 });
 
 class Products extends React.Component {
@@ -59,26 +72,40 @@ class Products extends React.Component {
       });
   }
 
+  // renderRating(rating){
+  //   if(rating % 0.5 != 0)
+  // }
+
   //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts() {
     const { classes, theme } = this.props;
     console.log(store);
     return store.getState().products.map(product => {
       return (
-        <Grid sm={10} md={8} lg={4} item={true}>
-          <Card raised={false}>
-            <CardHeader title={product.title} />
+        <Grid sm={10} md={6} lg={4} item={true}>
+          <Card className={classes.card} raised={true}>
+            <CardHeader className={classes.cardHead} title={product.title} />
             <CardMedia
               className={classes.image}
               image={product.img}
               alt={product.title}
             />
-            <CardHeader title={`$${product.price}`} />
+            <div className={classes.price}>
+              <CardHeader title={`$${product.price}`} />
+              <span>
+                <CardHeader title={`${product.rating}`} />
+                <Icon>star</Icon>
+              </span>
+            </div>
+
             <CardContent>
               <Typography component="p">{product.description}</Typography>
             </CardContent>
-            <CardActions>
-              <Button variant="contained">Add To Cart</Button>
+            <CardActions className={classes.buttons}>
+              <Button variant="text">Add To Cart</Button>
+              <Link to={`/products/${product.id}`} className={classes.myLink}>
+                <Button variant="text">More Info</Button>
+              </Link>
             </CardActions>
           </Card>
         </Grid>
@@ -91,7 +118,7 @@ class Products extends React.Component {
 
     return (
       <Paper elevation={2} className={classes.root}>
-        <Grid spacing={8} container={true} justify="space-evenly">
+        <Grid spacing={16} container={true} justify="space-evenly">
           {this.renderProducts()}
         </Grid>
       </Paper>

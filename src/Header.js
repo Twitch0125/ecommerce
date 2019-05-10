@@ -24,7 +24,7 @@ import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
-import Home from "@material-ui/icons/Home"
+import Home from "@material-ui/icons/Home";
 export const drawerWidth = 240; //exporting for styling in Products.js
 
 const styles = theme => ({
@@ -55,11 +55,14 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * .5
+    padding: theme.spacing.unit * 0.5
   },
   myLink: {
     textDecoration: "none",
     color: "inherit"
+  },
+  categories: {
+    textTransform: "Capitalize"
   }
 });
 //copied from Material-UI drawers examples
@@ -136,27 +139,24 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List>{this.renderCategories()}</List>
+        <List className={classes.categories}>{this.renderCategories()}</List>
         <Divider />
         <List>
-            <ListItem button>
-              <ListItemIcon>
-                <ShoppingCart />
-              </ListItemIcon>
-              <ListItemText>
-                Your Cart
-                </ListItemText>
-            </ListItem>
-            <Link className={classes.myLink} to="/">
+          <Link to="/cart" />
+          <ListItem button>
+            <ListItemIcon>
+              <ShoppingCart />
+            </ListItemIcon>
+            <ListItemText>Your Cart</ListItemText>
+          </ListItem>
+          <Link className={classes.myLink} to="/">
             <ListItem button>
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
-              <ListItemText>
-                Home
-                </ListItemText>
+              <ListItemText>Home</ListItemText>
             </ListItem>
-            </Link>
+          </Link>
         </List>
       </div>
     );
