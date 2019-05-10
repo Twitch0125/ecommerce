@@ -21,7 +21,7 @@ import { Star } from "@material-ui/icons/Star";
 //styles for products
 const styles = theme => ({
   root: {
-    marginLeft: `${drawerWidth}px`
+    marginLeft: `${drawerWidth + 8}px`
   },
   image: {
     height: "30vh",
@@ -44,7 +44,11 @@ const styles = theme => ({
     display: "flex",
     justifyContent: "space-evenly"
   },
-  card: {}
+  card: {},
+  rating: {
+    display: "flex",
+    alignItems: "center"
+  }
 });
 
 class Products extends React.Component {
@@ -72,9 +76,35 @@ class Products extends React.Component {
       });
   }
 
-  // renderRating(rating){
-  //   if(rating % 0.5 != 0)
-  // }
+  renderRating(rating) {
+    let stars = [];
+    const getHalfStar = () => {
+      if (rating % 1 >= 0.5) {
+        return stars.push({ type: "HALF_STAR" });
+      } else return <span />;
+    };
+    const pushStar = () => stars.push({ type: "FULL_STAR" });
+    const getFullStar = () => {
+      for (let i = 0; i < Math.floor(rating); i++) {
+        pushStar();
+      }
+      getHalfStar();
+    };
+    getFullStar();
+    return stars.map(star => {
+      switch (star.type) {
+        case "HALF_STAR": {
+          return <Icon>star_half</Icon>;
+        }
+        case "FULL_STAR": {
+          return <Icon>star</Icon>;
+        }
+        default: {
+          return <span />;
+        }
+      }
+    });
+  }
 
   //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts() {
@@ -92,14 +122,14 @@ class Products extends React.Component {
             />
             <div className={classes.price}>
               <CardHeader title={`$${product.price}`} />
-              <span>
+              <span className={classes.rating}>
                 <CardHeader title={`${product.rating}`} />
-                <Icon>star</Icon>
+                {this.renderRating(product.rating)}
               </span>
             </div>
 
             <CardContent>
-              <Typography component="p">{product.description}</Typography>
+              <Typography noWrap={true}>{product.description}</Typography>
             </CardContent>
             <CardActions className={classes.buttons}>
               <Button variant="text">Add To Cart</Button>
@@ -118,7 +148,7 @@ class Products extends React.Component {
 
     return (
       <Paper elevation={2} className={classes.root}>
-        <Grid spacing={16} container={true} justify="space-evenly">
+        <Grid spacing={40} container={true} justify="space-evenly">
           {this.renderProducts()}
         </Grid>
       </Paper>
