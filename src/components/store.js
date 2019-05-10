@@ -16,7 +16,9 @@ function reducer(state = initialState, action) {
     case "ADD_CATEGORIES":
       return Object.assign({}, state, { categories: action.categories });
     case "ADD_TO_CART":
-      return Object.assign({}, ...state, { cart: action.product });
+      return Object.assign({}, state, {
+        cart: [...state.cart, action.product]
+      });
   }
 }
 

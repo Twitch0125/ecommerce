@@ -16,7 +16,6 @@ import "../style/Products.css";
 import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
-import { Star } from "@material-ui/icons/Star";
 
 //styles for products
 const styles = theme => ({
@@ -31,6 +30,9 @@ const styles = theme => ({
   "@media screen and (max-width: 600px)": {
     root: {
       marginLeft: "0px"
+    },
+    description: {
+      whiteSpace: "normal"
     }
   },
   buttons: {
@@ -76,10 +78,20 @@ class Products extends React.Component {
       });
   }
 
+  addToCart(product) {
+    console.log("adding to cart", product);
+    store.dispatch({
+      type: "ADD_TO_CART",
+      product: product
+    });
+    console.log("cart now contains:", store.getState().cart);
+  }
+
   renderRating(rating) {
     let stars = [];
     const getHalfStar = () => {
       if (rating % 1 >= 0.5) {
+        //show a half star if its atleast got 0.5 after the integer. ex:  4.3 will have 4 fullstars but 4.5 will have 4fullstars and one halfstar
         return stars.push({ type: "HALF_STAR" });
       } else return <span />;
     };
@@ -112,7 +124,7 @@ class Products extends React.Component {
     console.log(store);
     return store.getState().products.map(product => {
       return (
-        <Grid sm={10} md={6} lg={4} item={true}>
+        <Grid sm={10} md={4} lg={3} item={true}>
           <Card className={classes.card} raised={true}>
             <CardHeader className={classes.cardHead} title={product.title} />
             <CardMedia
@@ -127,12 +139,15 @@ class Products extends React.Component {
                 {this.renderRating(product.rating)}
               </span>
             </div>
-
             <CardContent>
-              <Typography noWrap={true}>{product.description}</Typography>
+              <Typography className={classes.description} noWrap={true}>
+                {product.description}
+              </Typography>
             </CardContent>
             <CardActions className={classes.buttons}>
-              <Button variant="text">Add To Cart</Button>
+              <Button onClick={() => this.addToCart(product)} variant="text">
+                Add To Cart
+              </Button>
               <Link to={`/products/${product.id}`} className={classes.myLink}>
                 <Button variant="text">More Info</Button>
               </Link>

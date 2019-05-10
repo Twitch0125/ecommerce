@@ -142,13 +142,14 @@ class ResponsiveDrawer extends React.Component {
         <List className={classes.categories}>{this.renderCategories()}</List>
         <Divider />
         <List>
-          <Link to="/cart" />
-          <ListItem button>
-            <ListItemIcon>
-              <ShoppingCart />
-            </ListItemIcon>
-            <ListItemText>Your Cart</ListItemText>
-          </ListItem>
+          <Link className={classes.myLink} to="/cart">
+            <ListItem button>
+              <ListItemIcon>
+                <ShoppingCart />
+              </ListItemIcon>
+              <ListItemText>Your Cart</ListItemText>
+            </ListItem>
+          </Link>
           <Link className={classes.myLink} to="/">
             <ListItem button>
               <ListItemIcon>
