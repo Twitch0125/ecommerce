@@ -53,14 +53,14 @@ class App extends React.Component {
           <CssBaseline />
           <Header />
           <Switch>
-            <Route exact path="/" component={Products} />
+            <Route exact path="/ecommerce" component={Products} />
             <Route
               exact
               path="/products/:productId"
               component={ProductDetails}
             />
             <Route exact path="/cart" component={Cart} />
-            <Redirect to="/" />
+            <Redirect to="/ecommerce" />
           </Switch>
         </MuiThemeProvider>
       </div>
