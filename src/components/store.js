@@ -3,7 +3,7 @@ import { createStore } from "redux";
 const initialState = {
   products: [],
   categories: [],
-  selectedCategories: [],
+  selectedCategory: "",
   cart: []
 };
 
@@ -19,6 +19,16 @@ function reducer(state = initialState, action) {
       return Object.assign({}, state, {
         cart: [...state.cart, action.product]
       });
+    case "REMOVE_FROM_CART":
+      let newCart = state.cart.filter(
+        product => product.cartId !== action.cartId
+      );
+      console.log("removed item from cart. newCart: ", newCart);
+      return Object.assign({}, state, {
+        cart: newCart
+      });
+    case "SET_SELECTED_CATEGORY":
+      return Object.assign({}, state, { selectedCategory: action.category });
   }
 }
 

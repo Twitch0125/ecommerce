@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
@@ -22,6 +21,7 @@ import Watch from "@material-ui/icons/Watch";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import Build from "@material-ui/icons/Build";
 import Lens from "@material-ui/icons/Lens";
+import ClearAll from "@material-ui/icons/ClearAll";
 import { Link } from "react-router-dom";
 import Paper from "@material-ui/core/Paper";
 import Home from "@material-ui/icons/Home";
@@ -34,7 +34,8 @@ const styles = theme => ({
   drawer: {
     [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
-      flexShrink: 0
+      flexShrink: 0,
+      backgroundColor: theme.palette.primary.main
     }
   },
   appBar: {
@@ -121,10 +122,21 @@ class ResponsiveDrawer extends React.Component {
     }
   }
 
+  handleClick(category) {
+    store.dispatch({
+      type: "SET_SELECTED_CATEGORY",
+      category: category
+    });
+  }
+
   renderCategories() {
     return store.getState().categories.map((category, idx) => {
       return (
-        <ListItem button key={category}>
+        <ListItem
+          onClick={() => this.handleClick(category)}
+          button
+          key={category}
+        >
           {this.renderCategoriesIcons(category)}
           <ListItemText primary={category} />
         </ListItem>
@@ -139,11 +151,19 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List className={classes.categories}>{this.renderCategories()}</List>
+        <List className={classes.categories}>
+          {this.renderCategories()}
+          <ListItem onClick={() => this.handleClick("")} button key={""}>
+            <ListItemIcon>
+              <ClearAll />
+            </ListItemIcon>
+            <ListItemText>Show All Items</ListItemText>
+          </ListItem>
+        </List>
         <Divider />
         <List>
           <Link className={classes.myLink} to="/cart">
-            <ListItem button>
+            <ListItem button={true}>
               <ListItemIcon>
                 <ShoppingCart />
               </ListItemIcon>
@@ -165,7 +185,7 @@ class ResponsiveDrawer extends React.Component {
     return (
       <Paper elevation={4} className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar}>
+        <AppBar position="fixed" className={classes.appBar} color="primary">
           <Toolbar>
             <IconButton
               color="inherit"
