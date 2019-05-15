@@ -2,7 +2,6 @@ import React from "react";
 import store from "./store";
 import {
   Grid,
-  Paper,
   Card,
   CardContent,
   CardHeader,
@@ -19,7 +18,7 @@ import { drawerWidth } from "../Header";
 
 const uuidv4 = require("uuid/v4");
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     marginLeft: `${drawerWidth + 8}px`
   },
@@ -97,7 +96,7 @@ class Product extends React.Component {
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     return (
       <Grid sm={10} md={4} lg={3} item={true}>
         <Card className={classes.card} raised={true}>

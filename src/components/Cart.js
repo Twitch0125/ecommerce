@@ -38,8 +38,6 @@ class Cart extends React.Component {
   }
 
   renderProducts() {
-    const { classes, theme } = this.props;
-
     return store.getState().cart.map(product => {
       return (
         <ListItem key={product.cartId}>
@@ -62,7 +60,7 @@ class Cart extends React.Component {
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     if (store.getState().cart.length === 0) {
       return (
         <Typography className={classes.root} variant="h2">

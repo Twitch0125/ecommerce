@@ -1,19 +1,7 @@
 import React from "react";
 import store from "./store";
-import {
-  Grid,
-  Paper,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  CardActions,
-  Typography,
-  Button,
-  Icon
-} from "@material-ui/core";
+import { Grid, Paper } from "@material-ui/core";
 import "../style/Products.css";
-import { Link } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { drawerWidth } from "../Header";
 import Product from "./Product";
@@ -56,29 +44,27 @@ const styles = theme => ({
 
 class Products extends React.Component {
   renderCard(product) {
-    const { classes, theme } = this.props;
     return <Product product={product} />;
   }
 
   //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts(category) {
-    const { classes, theme } = this.props;
     console.log(store);
-    if (category != "") {
+    if (category !== "") {
       let filterredProducts = store
         .getState()
-        .products.filter(prod => prod.category == category);
+        .products.filter(prod => prod.category === category);
       return filterredProducts.map(product => this.renderCard(product));
-    } else if (category == "") {
+    } else if (category === "") {
       return store.getState().products.map(product => this.renderCard(product));
     }
   }
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
 
     return (
-      <Paper elevation={2} className={classes.root}>
+      <Paper elevation={0} className={classes.root}>
         <Grid spacing={40} container={true} justify="space-evenly">
           {this.renderProducts(store.getState().selectedCategory)}
         </Grid>
