@@ -154,15 +154,18 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <List className={classes.categories}>
-          {this.renderCategories()}
-          <ListItem onClick={() => this.handleClick('')} button key={''}>
-            <ListItemIcon>
-              <ClearAll />
-            </ListItemIcon>
-            <ListItemText>Show All Items</ListItemText>
-          </ListItem>
-        </List>
+        <Link className={classes.myLink} to='/'>
+          <List className={classes.categories}>
+            {this.renderCategories()}
+
+            <ListItem onClick={() => this.handleClick('')} button key={''}>
+              <ListItemIcon>
+                <ClearAll />
+              </ListItemIcon>
+              <ListItemText>Show All Items</ListItemText>
+            </ListItem>
+          </List>
+        </Link>
         <Divider />
         <List>
           <Link className={classes.myLink} to='/cart'>
