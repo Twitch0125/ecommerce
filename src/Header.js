@@ -1,32 +1,36 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import store from './components/store';
-import { Link } from 'react-router-dom';
+import {
+  AppBar,
+  Badge,
+  CssBaseline,
+  Divider,
+  Drawer,
+  Hidden,
+  IconButton,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Toolbar,
+  Typography,
+  withStyles
+} from '@material-ui/core';
+import {
+  Build,
+  ClearAll,
+  Home,
+  Lens,
+  Menu,
+  PhotoCamera,
+  ShoppingCart,
+  Smartphone,
+  Tv,
+  Watch
+} from '@material-ui/icons';
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
-import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import Smartphone from '@material-ui/icons/Smartphone';
-import Tv from '@material-ui/icons/Tv';
-import Watch from '@material-ui/icons/Watch';
-import PhotoCamera from '@material-ui/icons/PhotoCamera';
-import Build from '@material-ui/icons/Build';
-import Lens from '@material-ui/icons/Lens';
-import ClearAll from '@material-ui/icons/ClearAll';
-import Paper from '@material-ui/core/Paper';
-import Home from '@material-ui/icons/Home';
-import Badge from '@material-ui/core/Badge';
+import { Link } from 'react-router-dom';
+import React from 'react';
+import store from './components/store';
 
 export const drawerWidth = 240; //exporting for styling in Products.js
 
@@ -204,7 +208,7 @@ class ResponsiveDrawer extends React.Component {
               onClick={this.handleDrawerToggle}
               className={classes.menuButton}
             >
-              <MenuIcon />
+              <Menu />
             </IconButton>
 
             <Typography variant='h3' color='inherit' noWrap>
