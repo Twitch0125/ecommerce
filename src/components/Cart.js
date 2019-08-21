@@ -1,38 +1,40 @@
-import React from "react";
-import store from "./store";
-import { withStyles } from "@material-ui/core/styles";
 import {
-  Paper,
+  Avatar,
+  Icon,
+  IconButton,
   List,
   ListItem,
+  ListItemAvatar,
+  ListItemIcon,
   ListItemText,
   ListSubheader,
-  ListItemAvatar,
-  Avatar,
-  ListItemIcon,
-  IconButton,
-  Icon,
-  Typography
-} from "@material-ui/core";
+  Paper,
+  Typography,
+  withStyles
+} from '@material-ui/core';
+
+import React from 'react';
+import store from './store';
+
 const styles = theme => ({
   root: {
-    margin: "0 auto",
-    width: "50vw",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    margin: '0 auto',
+    width: '50vw',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
 
 class Cart extends React.Component {
   componentWillMount() {
-    console.log("cart mounted, this is in the cart:", store.getState().cart);
+    console.log('cart mounted, this is in the cart:', store.getState().cart);
   }
 
   handleClick(id) {
     store.subscribe(() => this.forceUpdate());
     store.dispatch({
-      type: "REMOVE_FROM_CART",
+      type: 'REMOVE_FROM_CART',
       cartId: id
     });
   }
@@ -45,11 +47,11 @@ class Cart extends React.Component {
             <Avatar alt={product.title} src={product.img} />
           </ListItemAvatar>
           <ListItemText>{product.title}</ListItemText>
-          <ListSubheader component="div">{`$${product.price}`}</ListSubheader>
+          <ListSubheader component='div'>{`$${product.price}`}</ListSubheader>
           <ListItemIcon>
             <IconButton
               onClick={() => this.handleClick(product.cartId)}
-              color="primary"
+              color='primary'
             >
               <Icon>delete_outline</Icon>
             </IconButton>
@@ -63,7 +65,7 @@ class Cart extends React.Component {
     const { classes } = this.props;
     if (store.getState().cart.length === 0) {
       return (
-        <Typography className={classes.root} variant="h2">
+        <Typography className={classes.root} variant='h2'>
           Your Cart Is Empty
         </Typography>
       );

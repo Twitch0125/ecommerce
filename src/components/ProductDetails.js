@@ -1,17 +1,18 @@
-import React from "react";
-import store from "./store";
-import { withStyles } from "@material-ui/core/styles";
-import { drawerWidth } from "../Header";
 import {
   Button,
-  Typography,
   Card,
-  CardMedia,
+  CardActions,
   CardContent,
   CardHeader,
-  CardActions
-} from "@material-ui/core";
-import { Link } from "react-router-dom";
+  CardMedia,
+  Typography,
+  withStyles
+} from '@material-ui/core';
+
+import { Link } from 'react-router-dom';
+import React from 'react';
+import { drawerWidth } from '../Header';
+import store from './store';
 
 //styles for products
 const styles = () => ({
@@ -19,21 +20,21 @@ const styles = () => ({
     marginLeft: `${drawerWidth}px !important`
   },
   link: {
-    color: "inherit",
-    textDecoration: "none"
+    color: 'inherit',
+    textDecoration: 'none'
   },
   card: {
-    maxWidth: "50%"
+    maxWidth: '50%'
   },
   image: {
-    height: "50vh",
-    backgroundSize: "contain"
+    height: '50vh',
+    backgroundSize: 'contain'
   }
 });
 class ProductDetails extends React.Component {
   productId = this.props.match.params.productId;
   getProductInfo() {
-    console.log(store.getState().products, "productdetails store");
+    console.log(store.getState().products, 'productdetails store');
     return store.getState().products.find(prod => prod.id == this.productId); //the double == is necessary here. Taking advantage of javascript Type Coercion
   }
   render() {
@@ -50,15 +51,15 @@ class ProductDetails extends React.Component {
           />
           <CardHeader title={`$${product.price}`} />
           <CardContent>
-            <Typography component="p">
+            <Typography component='p'>
               {this.getProductInfo().description}
             </Typography>
           </CardContent>
           <CardActions>
-            <Link className={classes.link} to="/">
-              <Button variant="flat">BACK</Button>
+            <Link className={classes.link} to='/'>
+              <Button variant='flat'>BACK</Button>
             </Link>
-            <Button variant="flat">Add To Cart</Button>
+            <Button variant='flat'>Add To Cart</Button>
           </CardActions>
         </Card>
       </div>

@@ -1,10 +1,11 @@
-import React from "react";
-import store from "./store";
-import { Grid, Paper } from "@material-ui/core";
-import "../style/Products.css";
-import { withStyles } from "@material-ui/core/styles";
-import { drawerWidth } from "../Header";
-import Product from "./Product";
+import '../style/Products.css';
+
+import { Grid, Paper, withStyles } from '@material-ui/core';
+
+import Product from './Product';
+import React from 'react';
+import { drawerWidth } from '../Header';
+import store from './store';
 
 //styles for products
 const styles = theme => ({
@@ -12,33 +13,33 @@ const styles = theme => ({
     marginLeft: `${drawerWidth + 8}px`
   },
   image: {
-    height: "30vh",
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat"
+    height: '30vh',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat'
   },
-  "@media screen and (max-width: 600px)": {
+  '@media screen and (max-width: 600px)': {
     root: {
-      marginLeft: "0px"
+      marginLeft: '0px'
     },
     description: {
-      whiteSpace: "normal"
+      whiteSpace: 'normal'
     }
   },
   buttons: {
-    justifyContent: "space-evenly"
+    justifyContent: 'space-evenly'
   },
   myLink: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   },
   price: {
-    display: "flex",
-    justifyContent: "space-evenly"
+    display: 'flex',
+    justifyContent: 'space-evenly'
   },
   card: {},
   rating: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -50,12 +51,12 @@ class Products extends React.Component {
   //gets the products from the store. Renders each product as a GridListTile with Links
   renderProducts(category) {
     console.log(store);
-    if (category !== "") {
+    if (category !== '') {
       let filterredProducts = store
         .getState()
         .products.filter(prod => prod.category === category);
       return filterredProducts.map(product => this.renderCard(product));
-    } else if (category === "") {
+    } else if (category === '') {
       return store.getState().products.map(product => this.renderCard(product));
     }
   }
@@ -65,7 +66,7 @@ class Products extends React.Component {
 
     return (
       <Paper elevation={0} className={classes.root}>
-        <Grid spacing={40} container={true} justify="space-evenly">
+        <Grid spacing={40} container={true} justify='space-evenly'>
           {this.renderProducts(store.getState().selectedCategory)}
         </Grid>
       </Paper>

@@ -1,55 +1,57 @@
-import React from "react";
-import store from "./store";
+import '../style/Products.css';
+
 import {
-  Grid,
+  Button,
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
-  CardActions,
+  Grid,
+  Icon,
   Typography,
-  Button,
-  Icon
-} from "@material-ui/core";
-import "../style/Products.css";
-import { Link } from "react-router-dom";
-import { withStyles } from "@material-ui/core/styles";
-import { drawerWidth } from "../Header";
+  withStyles
+} from '@material-ui/core';
 
-const uuidv4 = require("uuid/v4");
+import { Link } from 'react-router-dom';
+import React from 'react';
+import { drawerWidth } from '../Header';
+import store from './store';
+
+const uuidv4 = require('uuid/v4');
 
 const styles = () => ({
   root: {
     marginLeft: `${drawerWidth + 8}px`
   },
   image: {
-    height: "30vh",
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat"
+    height: '30vh',
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat'
   },
-  "@media screen and (max-width: 600px)": {
+  '@media screen and (max-width: 600px)': {
     root: {
-      marginLeft: "0px"
+      marginLeft: '0px'
     },
     description: {
-      whiteSpace: "normal"
+      whiteSpace: 'normal'
     }
   },
   buttons: {
-    justifyContent: "space-evenly"
+    justifyContent: 'space-evenly'
   },
   myLink: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   },
   price: {
-    display: "flex",
-    justifyContent: "space-evenly"
+    display: 'flex',
+    justifyContent: 'space-evenly'
   },
   card: {},
   rating: {
-    display: "flex",
-    alignItems: "center"
+    display: 'flex',
+    alignItems: 'center'
   }
 });
 
@@ -59,10 +61,10 @@ class Product extends React.Component {
     const getHalfStar = () => {
       if (rating % 1 >= 0.5) {
         //show a half star if its atleast got 0.5 after the integer. ex:  4.3 will have 4 fullstars but 4.5 will have 4fullstars and one halfstar
-        return stars.push({ type: "HALF_STAR" });
+        return stars.push({ type: 'HALF_STAR' });
       } else return <span />;
     };
-    const pushStar = () => stars.push({ type: "FULL_STAR" });
+    const pushStar = () => stars.push({ type: 'FULL_STAR' });
     const getFullStar = () => {
       for (let i = 0; i < Math.floor(rating); i++) {
         pushStar();
@@ -72,11 +74,11 @@ class Product extends React.Component {
     getFullStar();
     return stars.map(star => {
       switch (star.type) {
-        case "HALF_STAR": {
-          return <Icon color="primary">star_half</Icon>;
+        case 'HALF_STAR': {
+          return <Icon color='primary'>star_half</Icon>;
         }
-        case "FULL_STAR": {
-          return <Icon color="primary">star</Icon>;
+        case 'FULL_STAR': {
+          return <Icon color='primary'>star</Icon>;
         }
         default: {
           return <span />;
@@ -86,13 +88,13 @@ class Product extends React.Component {
   }
 
   addToCart(product) {
-    console.log("adding to cart", product);
+    console.log('adding to cart', product);
     let uuid = uuidv4();
     store.dispatch({
-      type: "ADD_TO_CART",
+      type: 'ADD_TO_CART',
       product: { ...product, cartId: uuid }
     });
-    console.log("cart now contains:", store.getState().cart);
+    console.log('cart now contains:', store.getState().cart);
   }
 
   render() {
@@ -111,7 +113,7 @@ class Product extends React.Component {
           />
           <div className={classes.price}>
             <CardHeader
-              titleTypographyProps={{ color: "default" }}
+              titleTypographyProps={{ color: 'default' }}
               title={`$${this.props.product.price}`}
             />
             <span className={classes.rating}>
@@ -126,9 +128,9 @@ class Product extends React.Component {
           </CardContent>
           <CardActions className={classes.buttons}>
             <Button
-              color="primary"
+              color='primary'
               onClick={() => this.addToCart(this.props.product)}
-              variant="outlined"
+              variant='outlined'
             >
               Add To Cart
             </Button>
@@ -136,7 +138,7 @@ class Product extends React.Component {
               to={`/products/${this.props.product.id}`}
               className={classes.myLink}
             >
-              <Button color="primary" variant="outlined">
+              <Button color='primary' variant='outlined'>
                 More Info
               </Button>
             </Link>
