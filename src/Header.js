@@ -1,38 +1,41 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import Drawer from "@material-ui/core/Drawer";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuIcon from "@material-ui/icons/Menu";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { withStyles } from "@material-ui/core/styles";
-import store from "./components/store";
-import ShoppingCart from "@material-ui/icons/ShoppingCart";
-import Smartphone from "@material-ui/icons/Smartphone";
-import Tv from "@material-ui/icons/Tv";
-import Watch from "@material-ui/icons/Watch";
-import PhotoCamera from "@material-ui/icons/PhotoCamera";
-import Build from "@material-ui/icons/Build";
-import Lens from "@material-ui/icons/Lens";
-import ClearAll from "@material-ui/icons/ClearAll";
-import { Link } from "react-router-dom";
-import Paper from "@material-ui/core/Paper";
-import Home from "@material-ui/icons/Home";
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import store from './components/store';
+import { Link } from 'react-router-dom';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import MenuIcon from '@material-ui/icons/Menu';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
+import Smartphone from '@material-ui/icons/Smartphone';
+import Tv from '@material-ui/icons/Tv';
+import Watch from '@material-ui/icons/Watch';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
+import Build from '@material-ui/icons/Build';
+import Lens from '@material-ui/icons/Lens';
+import ClearAll from '@material-ui/icons/ClearAll';
+import Paper from '@material-ui/core/Paper';
+import Home from '@material-ui/icons/Home';
+import Badge from '@material-ui/core/Badge';
+
 export const drawerWidth = 240; //exporting for styling in Products.js
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: 'flex'
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
       flexShrink: 0,
       backgroundColor: theme.palette.primary.main
@@ -40,14 +43,14 @@ const styles = theme => ({
   },
   appBar: {
     marginLeft: drawerWidth,
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: `calc(100% - ${drawerWidth}px)`
     }
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up("sm")]: {
-      display: "none"
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
     }
   },
   toolbar: theme.mixins.toolbar,
@@ -59,11 +62,11 @@ const styles = theme => ({
     padding: theme.spacing.unit * 0.5
   },
   myLink: {
-    textDecoration: "none",
-    color: "inherit"
+    textDecoration: 'none',
+    color: 'inherit'
   },
   categories: {
-    textTransform: "Capitalize"
+    textTransform: 'Capitalize'
   }
 });
 //copied from Material-UI drawers examples
@@ -81,50 +84,50 @@ class ResponsiveDrawer extends React.Component {
 
   renderCategoriesIcons(category) {
     switch (category) {
-      case "phone":
+      case 'phone':
         return (
           <ListItemIcon>
             <Smartphone />
           </ListItemIcon>
         );
-      case "tv":
+      case 'tv':
         return (
           <ListItemIcon>
             <Tv />
           </ListItemIcon>
         );
-      case "small-appliance":
+      case 'small-appliance':
         return (
           <ListItemIcon>
             <Build />
           </ListItemIcon>
         );
-      case "refrigerator":
+      case 'refrigerator':
         return (
           <ListItemIcon>
             <Lens />
           </ListItemIcon>
         );
-      case "watch":
+      case 'watch':
         return (
           <ListItemIcon>
             <Watch />
           </ListItemIcon>
         );
-      case "action-camera":
+      case 'action-camera':
         return (
           <ListItemIcon>
             <PhotoCamera />
           </ListItemIcon>
         );
       default:
-        return "";
+        return '';
     }
   }
 
   handleClick(category) {
     store.dispatch({
-      type: "SET_SELECTED_CATEGORY",
+      type: 'SET_SELECTED_CATEGORY',
       category: category
     });
   }
@@ -153,7 +156,7 @@ class ResponsiveDrawer extends React.Component {
         <Divider />
         <List className={classes.categories}>
           {this.renderCategories()}
-          <ListItem onClick={() => this.handleClick("")} button key={""}>
+          <ListItem onClick={() => this.handleClick('')} button key={''}>
             <ListItemIcon>
               <ClearAll />
             </ListItemIcon>
@@ -162,15 +165,20 @@ class ResponsiveDrawer extends React.Component {
         </List>
         <Divider />
         <List>
-          <Link className={classes.myLink} to="/cart">
+          <Link className={classes.myLink} to='/cart'>
             <ListItem button={true}>
-              <ListItemIcon>
-                <ShoppingCart />
-              </ListItemIcon>
+              <Badge
+                badgeContent={store.getState().cart.length}
+                color='primary'
+              >
+                <ListItemIcon>
+                  <ShoppingCart />
+                </ListItemIcon>
+              </Badge>
               <ListItemText>Your Cart</ListItemText>
             </ListItem>
           </Link>
-          <Link className={classes.myLink} to="/">
+          <Link className={classes.myLink} to='/'>
             <ListItem button>
               <ListItemIcon>
                 <Home />
@@ -185,30 +193,30 @@ class ResponsiveDrawer extends React.Component {
     return (
       <Paper elevation={4} className={classes.root}>
         <CssBaseline />
-        <AppBar position="fixed" className={classes.appBar} color="primary">
+        <AppBar position='fixed' className={classes.appBar} color='primary'>
           <Toolbar>
             <IconButton
-              color="inherit"
-              aria-label="Open drawer"
+              color='inherit'
+              aria-label='Open drawer'
               onClick={this.handleDrawerToggle}
               className={classes.menuButton}
             >
               <MenuIcon />
             </IconButton>
 
-            <Typography variant="h3" color="inherit" noWrap>
-              <Link className={classes.myLink} to="/">
+            <Typography variant='h3' color='inherit' noWrap>
+              <Link className={classes.myLink} to='/'>
                 Kaleb Co.
               </Link>
             </Typography>
           </Toolbar>
         </AppBar>
         <nav className={classes.drawer}>
-          <Hidden smUp implementation="css">
+          <Hidden smUp implementation='css'>
             <Drawer
               container={this.props.container}
-              variant="temporary"
-              anchor={theme.direction === "rtl" ? "right" : "left"}
+              variant='temporary'
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={this.state.mobileOpen}
               onClose={this.handleDrawerToggle}
               classes={{
@@ -218,12 +226,12 @@ class ResponsiveDrawer extends React.Component {
               {drawer}
             </Drawer>
           </Hidden>
-          <Hidden xsDown implementation="css">
+          <Hidden xsDown implementation='css'>
             <Drawer
               classes={{
                 paper: classes.drawerPaper
               }}
-              variant="permanent"
+              variant='permanent'
               open
             >
               {drawer}
